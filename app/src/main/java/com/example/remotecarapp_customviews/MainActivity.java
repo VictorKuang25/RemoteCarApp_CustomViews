@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Joystick joystick;
     TextView textView;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,17 +42,11 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {            }
         });
 
-        joystick.setOnMoveListener(new Joystick.OnMoveListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onMove(float x, float y) {
-                textView.setText(
-                        "x:" + Math.round(x*10000)/100f +
-                                "\ny:" + Math.round(y*10000)/100f +
-                                "\nangle:" + Math.round(Joystick.getJoystickAngle(x,y)*10000)/10000f+
-                                "\ndistance:" + Math.round(Joystick.getJoystickDistance(x,y)*10000)/100f );
-            }
-        });
+        joystick.setOnMoveListener((x, y) -> textView.setText(
+                "x:" + Math.round(x*10000)/100f +
+                        "\ny:" + Math.round(y*10000)/100f +
+                        "\nangle:" + Math.round(Joystick.getJoystickAngle(x,y)*10000)/10000f+
+                        "\ndistance:" + Math.round(Joystick.getJoystickDistance(x,y)*10000)/100f ));
 
     }
 

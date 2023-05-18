@@ -2,6 +2,7 @@ package com.example.joystick;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -31,6 +32,17 @@ public class Joystick extends ConstraintLayout {
     private boolean fixedCenter;
     private int indicatorMode;
     private OnMoveListener onMoveListener;
+
+    public Joystick(@NonNull Context context) {
+        super(context);
+//constructor
+        LayoutInflater.from(context).inflate(R.layout.joystick_layout, this, true);
+        this.innerCircle = this.findViewById(R.id.iv_inner);
+        this.outerCircle = this.findViewById(R.id.iv_outer);
+        this.indicator = this.findViewById(R.id.iv_indicator);
+
+        init();
+    }
 
     public Joystick(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -88,6 +100,13 @@ public class Joystick extends ConstraintLayout {
         }
         updateJoystickPos();
         updateIndicator();
+        performClick();
+        return true;
+    }
+
+    @Override
+    public boolean performClick() {
+        super.performClick();
         return true;
     }
 
